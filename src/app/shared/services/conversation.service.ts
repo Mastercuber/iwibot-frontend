@@ -90,7 +90,7 @@ export class ConversationService {
       try {
         if(loginService.libCredentialsAvailable()) {
           await loginService.getEncryptedLibCredentials().then(msg => {
-            request.library_credentials = msg;
+            request.library_credentials = String(msg);
             //return requestObject;
           });
         }
@@ -114,6 +114,7 @@ export class ConversationService {
         payload : message,
         context : this.conversation.getContext()
     };
+    if (!requestObject.context) requestObject.context = {};
     requestObject.context.iwibotCreds = this.loginService.getCookie('iwibot-creds');
 
     if (this.getConversation().getUserInformation()) {
