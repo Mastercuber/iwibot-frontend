@@ -90,7 +90,7 @@ export class ConversationService {
       try {
         if(loginService.libCredentialsAvailable()) {
           await loginService.getEncryptedLibCredentials().then(msg => {
-            request.library_credentials = msg;
+            request.library_credentials = String(msg);
             //return requestObject;
           });
         }

@@ -65,6 +65,7 @@ export class ChatComponent implements OnInit {
 
   private initRecognition(): void {
     if (!this.isSpeechRecognitionSupported) {
+      console.warn('speech recognition is not supported!');
       return;
     }
     this.speechRecognizer.onStart()
