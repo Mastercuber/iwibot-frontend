@@ -111,10 +111,14 @@ export class ConversationService {
    */
   private createConversationRequestObject(message: string): ConversationRequestObject {
     const requestObject: ConversationRequestObject = {
-        payload : message,
-        context : this.conversation.getContext()
+        payload : message
     };
-    requestObject.context.iwibotCreds = this.loginService.getCookie('iwibot-creds');
+    if (this.conversation.getContext()) {
+      requestObject.context = this.conversation.getContext();
+    }
+    if (requestObject.context && this.loginService.getCookie('iwibot-creds')) {
+      requestObject.context.iwibotCreds = this.loginService.getCookie('iwibot-creds');
+    }
 
     if (this.getConversation().getUserInformation()) {
       requestObject.semester = this.conversation.getUserInformation().getSemester();
@@ -135,7 +139,7 @@ export class ConversationService {
     const responseMessage = new Message(
                             conversationResponseObject.payload,
                             false,
-                            conversationResponseObject.htmlText,
+                            conversationResponseObject.html,
                             conversationResponseObject.language
                             );
     this.conversation.setContext(conversationResponseObject.context);
