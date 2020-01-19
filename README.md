@@ -18,22 +18,21 @@
 1. Make sure you have installed a [nodejs](https://nodejs.org/en/download/) runtime and the node package manager (npm) for your OS. Supported versions are 12.13.x
     1. (optional) Install the [Angular CLI](https://github.com/angular/angular-cli) globally with `npm install -g @angular/cli`
     2. (optional) Install the [yarn package manager](https://yarnpkg.com/lang/en/) globally with `npm install -g yarn`
-2. If you haven't got **git**... [go get it](https://git-scm.com/downloads). 
-Then clone the Github project with `git clone https://github.com/HSKA-IWI-VSYS/iwibot-frontend`.
+2. Clone the Github project with `git clone https://github.com/HSKA-IWI-VSYS/iwibot-frontend`.
 3. Navigate to root directory of the project
 4. Run `npm install` or `yarn install` to install the dependencies  
 5. Run `npm run start` or `yarn run start` for a dev server. Navigate to `http://localhost:4200/` in a **Chrome Web-Browser**! The app will automatically reload if you change any of the source files.
 
 ### Environment configuration
 
-If you have deployed your own [iwibot-openwhisk](https://github.com/HSKA-IWI-VSYS/iwibot-openwhisk) Back-End and want to configure the Front-End to use your deployed Back-End:
+If you have deployed your own [iwibot-backend](https://github.com/HSKA-IWI-VSYS/iwibot-backend) and want to configure the frontend to use your deployed backend:
 1. Navigate to `src/environments`
 2. Change `CONVERSATION_API_URL` in `environment.prod.ts` and `environment.ts`  to fit your conversation api url.
 
 Steps to find your `CONVERSATION_API_URL`
-1. Make sure you have deployed [iwibot-openwhisk](https://github.com/HSKA-IWI-VSYS/iwibot-openwhisk)
-2. Run `ibmcloud wsk api list` in your console
-3. Find the URL that ends with `/iwibot/router` and copy it
+1. Run `ibmcloud wsk api list` in your terminal in the backend container (`docker-compose run iwibot /bin/bash`)
+2. Find the URL that ends with `/iwibot/router` and copy it
+3. Paste it as `CONVERSATION_API_URL` value
  
 ## Deploy the frontend
 
@@ -43,18 +42,35 @@ We use [angular-cli-ghpages](https://github.com/angular-schule/angular-cli-ghpag
 1. Run `ng build --prod --base-href "https://user-name.github.io/repo/"
 2. Run `ngh` to the deploy the build to GitHub Pages
 ### Kubernetes
-Before deploying with kubernetes you need to build the image: `docker build . -t iwibot-frontend`  
+Before deploying with kubernetes you need to build the image: `docker build . -t iwibot-frontend`
+
+Keep in mind that you need to build the image with the docker daemon used by the kubernetes cluster. To get access to the minikubes docker daemon for one terminal session run `eval $(minikube docker-env)` in a terminal, then build the image.  
 
 Use [minikube](https://kubernetes.io/de/docs/setup/minikube/) or something like that to setup a kubernetes cluster. If it is ready and the `kubectl` is configured you can deploy the frontend with `kubectl apply -f manifest.yml`.
 
 Create a [service](https://kubernetes.io/docs/concepts/services-networking/service/) to get an ip address and loadbalancing functionality. Use the `kubectl apply -f service-manifest.yml` for creating this service.
 
 Next create an [ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) for the service by invoking `kubectl apply -f ingress-manifest.yml`.
+
+By invoking `kubectl get ingress` you can get the address your service is available at (e.g. `192.168.13.100`).
+
+For ***deleting*** the *deployment*, *service* and *ingress* run the following commands: 
+```
+kubectl delete deployment iwibot-frontend
+``` 
+```
+kubectl delete service service-iwibot-frontend
+```
+ ```
+kubectl delete ingress ingress-iwibot-frontend
+```
 ## Coding
 ### Docker
 With `docker-compose up -d --build` you can setup a daemonized docker instance of the frontend.
 
 To e.g. see the config, you can use `docker-compose run iwibot-frontend /bin/bash` to get access to a bash inside the container.
+
+Just type `localhost` in your browser to get access to the frontend. To use another port instead of the default port 80 modify the [docker-compose.yml](docker-compose.yml) to use e.g. `8080:80`.
 ### Code scaffolding
 
 * Run `ng generate component conversation` to generate a component named conversation
