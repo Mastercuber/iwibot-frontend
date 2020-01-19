@@ -1,0 +1,9 @@
+version: '3'
+services:
+  iwibot-frontend:
+    command: tail -F /frontend/utils/banner/banner.txt
+    ports:
+    - 8080:80
+    - 8443:443
+    build:
+      context: .
