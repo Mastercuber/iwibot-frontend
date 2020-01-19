@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1beta1 # for versions before 1.14 use extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-iwibot-frontend
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: mastercuber.fritz.box
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: service-iwibot-frontend
+              servicePort: 80

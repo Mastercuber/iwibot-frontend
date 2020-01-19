@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iwibot-frontend
+  labels:
+    app: iwibot-frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: iwibot-frontend
+  template:
+    metadata:
+      labels:
+        app: iwibot-frontend
+    spec:
+      containers:
+        - name: iwibot-frontend
+          image: iwibot-frontend:latest
+          ports:
+            - containerPort: 80
+            - containerPort: 443
