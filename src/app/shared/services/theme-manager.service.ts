@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class ThemeManagerService {
 
-  isDarkTheme = false;
+  isDarkTheme = true;
 
   constructor() {
     this.setThemeFromLocalStorage();
