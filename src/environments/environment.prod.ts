@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   apiEndpoints: {
-    CONVERSATION_API_URL: 'https://service.eu.apiconnect.ibmcloud.com/gws/apigateway/api/f5a899b31e8234cfabc39f0fd4e3774c59148dfc796d0f49fd774e58de9ab11f/iwibot/router', // tslint:disable-line
+    CONVERSATION_API_URL: 'https://service.eu-de.apiconnect.ibmcloud.com/gws/apigateway/api/74548fca493bef975c8206ac98bec42f3d380080b70c4cc99a98ea390be20c57/iwibot/router', // tslint:disable-line
     HSKA_STUDENT_INFO_URL: 'https://www.iwi.hs-karlsruhe.de/iwii/REST/credential/v2/info',
     BULLETIN_BOARD_NEWS_URL: 'https://www.iwi.hs-karlsruhe.de/iwii/REST/newsbulletinboard',
     HSKA_LIB_BORROWED_BOOKS_URL: 'https://www.iwi.hs-karlsruhe.de/iwii/REST/library/borrowedbooks',
