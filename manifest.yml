@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: iwibot-frontend
-          image: iwibot-frontend:latest
+          image: iwibot-frontend
+          imagePullPolicy: Never
           ports:
             - containerPort: 80
-            - containerPort: 443
