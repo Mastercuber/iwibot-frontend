@@ -43,6 +43,8 @@ We use [angular-cli-ghpages](https://github.com/angular-schule/angular-cli-ghpag
 1. Run `ng build --prod --base-href "https://user-name.github.io/repo/"
 2. Run `ngh` to the deploy the build to GitHub Pages
 ### Kubernetes
+Before deploying with kubernetes you need to build the image: `docker build . -t iwibot-frontend`  
+
 Use [minikube](https://kubernetes.io/de/docs/setup/minikube/) or something like that to setup a kubernetes cluster. If it is ready and the `kubectl` is configured you can deploy the frontend with `kubectl apply -f manifest.yml`.
 
 Create a [service](https://kubernetes.io/docs/concepts/services-networking/service/) to get an ip address and loadbalancing functionality. Use the `kubectl apply -f service-manifest.yml` for creating this service.
