@@ -67,12 +67,12 @@ export class LoginService {
   }
 
   public setLibCredentials(username: string, passowrd: string) {
-    this.libCredentials.name= username;
+    this.libCredentials.name = username;
     this.libCredentials.password = passowrd;
   }
 
   public libCredentialsAvailable(): boolean {
-    if(this.libCredentials.name) {
+    if (this.libCredentials.name) {
       return true;
     }
     return false;
@@ -82,5 +82,4 @@ export class LoginService {
     return this.cryptoMod.createEncryptedJsonMessage(JSON.stringify(this.libCredentials));
   }
 
- 
 }

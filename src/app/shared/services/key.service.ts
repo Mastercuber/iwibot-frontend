@@ -75,6 +75,9 @@ export class CryptoModule {
     }
 
     public createEncryptedJsonMessage(plaintext) {
+        if (typeof plaintext === 'object') {
+          plaintext = JSON.stringify(plaintext);
+        }
         const data = this.encoder.encode(plaintext);
         return this.encryptPlaintextWithAes(data, this.secret_key)
             .then(msg => Promise.resolve(JSON.stringify(msg)));

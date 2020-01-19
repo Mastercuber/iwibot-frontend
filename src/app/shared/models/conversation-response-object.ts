@@ -1,6 +1,6 @@
 export interface ConversationResponseObject {
   payload: string;
-  htmlText: string;
+  html: string;
   language: string;
   context: any;
 }
